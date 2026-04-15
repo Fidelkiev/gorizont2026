@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gorizont.com.ua — Визуализация Главной</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font: 13px/18px 'Trebuchet MS', Helvetica, sans-serif;
+            color: #594e44;
+            background: #fff;
+        }
+        
+        /* Layout Structure */
+        .bone { min-height: 100%; position: relative; }
+        .page-width { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .clearfix::after { content: ""; display: table; clear: both; }
+        
+        /* Header */
+        .bg-top { background: #f8f8f8; border-bottom: 2px solid #ddd; }
+        .header { padding: 20px 0; }
+        .logo { float: left; }
+        .logo a {
+            font-size: 24px;
+            font-weight: bold;
+            color: #161a0b;
+            text-decoration: none;
+        }
+        .topnav { float: right; text-align: right; }
+        .topnav ul { list-style: none; margin: 0 0 10px 0; padding: 0; }
+        .topnav li { display: inline-block; margin-left: 15px; font-size: 12px; }
+        .topnav a { color: #161a0b; text-decoration: underline; }
+        
+        /* Main Navigation */
+        .main-navigation {
+            background: #161a0b;
+            margin-top: 15px;
+            clear: both;
+        }
+        .main-menu {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .main-menu li { display: inline-block; }
+        .main-menu a {
+            display: block;
+            padding: 12px 20px;
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .main-menu a:hover { background: #2a3015; }
+        
+        /* Hero Banner */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 80px 0;
+            text-align: center;
+            color: white;
+        }
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .hero p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        .hero-cta {
+            display: inline-block;
+            background: #ff6b35;
+            color: white;
+            padding: 15px 40px;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 4px;
+            box-shadow: 0 4px 15px rgba(255,107,53,0.4);
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 60px 0;
+            background: #f5f5f5;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 28px;
+            color: #161a0b;
+            margin-bottom: 40px;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+        .feature-card {
+            background: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: #667eea;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+        }
+        .feature-card h3 {
+            font-size: 16px;
+            color: #161a0b;
+            margin-bottom: 10px;
+        }
+        .feature-card p { font-size: 12px; color: #666; }
+        
+        /* Products Grid */
+        .products-section { padding: 60px 0; }
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        .product-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: box-shadow 0.3s;
+        }
+        .product-card:hover { box-shadow: 0 5px 20px rgba(0,0,0,0.15); }
+        .product-image {
+            height: 200px;
+            background: linear-gradient(45deg, #e0e0e0, #f0f0f0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 14px;
+        }
+        .product-content { padding: 20px; }
+        .product-content h3 {
+            font-size: 16px;
+            color: #161a0b;
+            margin-bottom: 10px;
+        }
+        .product-content p {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        .product-price {
+            color: #ff6b35;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #161a0b;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+        
+        /* About Section */
+        .about-section {
+            padding: 60px 0;
+            background: #f8f8f8;
+        }
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .about-text h2 {
+            font-size: 28px;
+            color: #161a0b;
+            margin-bottom: 20px;
+        }
+        .about-text p { margin-bottom: 15px; line-height: 1.6; }
+        .about-image {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            height: 300px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 80px 0;
+            background: #161a0b;
+            color: white;
+            text-align: center;
+        }
+        .cta-section h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+        .cta-section p {
+            font-size: 16px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        .cta-btn {
+            display: inline-block;
+            padding: 18px 50px;
+            background: #ff6b35;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #0d0f08;
+            color: #999;
+            padding: 40px 0;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+        .footer-col h4 {
+            color: white;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        .footer-col ul { list-style: none; }
+        .footer-col li { margin-bottom: 8px; }
+        .footer-col a { color: #999; text-decoration: none; font-size: 12px; }
+        .footer-bottom {
+            border-top: 1px solid #333;
+            margin-top: 30px;
+            padding-top: 20px;
+            text-align: center;
+            font-size: 12px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .features-grid,
+            .products-grid { grid-template-columns: 1fr; }
+            .about-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 28px; }
+            .topnav { display: none; }
+        }
+        
+        /* Annotation styles */
+        .annotation {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-size: 12px;
+            max-width: 300px;
+        }
+        .annotation h4 { margin-bottom: 10px; color: #58a6ff; }
+        .zone-label {
+            position: absolute;
+            background: rgba(255,107,53,0.9);
+            color: white;
+            padding: 4px 12px;
+            font-size: 11px;
+            font-weight: bold;
+            border-radius: 4px;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
+    <div class="bone">
+        <!-- Header -->
+        <div class="bg-top">
+            <div class="page-width">
+                <div class="header clearfix">
+                    <div class="logo">
+                        <a href="#">ГОРИЗОНТ ® Sun Protection Systems</a>
+                    </div>
+                    <div class="topnav">
+                        <ul>
+                            <li><a href="#">Новости</a></li>
+                            <li><a href="#">О компании</a></li>
+                            <li><a href="#">Как сделать заказ</a></li>
+                            <li><a href="#">Сервис и гарантия</a></li>
+                            <li><a href="#">Контакты</a></li>
+                        </ul>
+                        <ul>
+                            <li>Режим работы офиса: 8:00 - 18:00</li>
+                            <li>Пн-Пт | Замерщик: 8:00 - 22:00 ежедневно</li>
+                            <li><b>Скидка -10% при заказе через сайт</b></li>
+                        </ul>
+                    </div>
+                </div>
+                <nav class="main-navigation">
+                    <ul class="main-menu">
+                        <li><a href="#">Главная</a></li>
+                        <li><a href="#">Маркизы</a></li>
+                        <li><a href="#">Перголы</a></li>
+                        <li><a href="#">Навесы</a></li>
+                        <li><a href="#">Зонты</a></li>
+                        <li><a href="#">Витражи</a></li>
+                        <li><a href="#">Рефлексоли</a></li>
+                        <li><a href="#">Ограждения</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="page-width">
+                <h1>Солнцезащитные системы премиум класса</h1>
+                <p>Маркизы, перголы, навесы и зонты от компании Горизонт. Производство и установка под ключ. Гарантия 5 лет.</p>
+                <a href="#" class="hero-cta">Бесплатный замер →</a>
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section class="features">
+            <div class="page-width">
+                <h2 class="section-title">Почему выбирают нас</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">★</div>
+                        <h3>5 лет гарантии</h3>
+                        <p>Официальная гарантия на все конструкции и материалы</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <h3>Быстрый монтаж</h3>
+                        <p>Установка за 1-3 дня после изготовления</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🏆</div>
+                        <h3>Опыт 15+ лет</h3>
+                        <p>Работаем с 2008 года, более 5000 проектов</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📐</div>
+                        <h3>Индивидуальный проект</h3>
+                        <p>Разработка дизайна под ваши размеры и задачи</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products -->
+        <section class="products-section">
+            <div class="page-width">
+                <h2 class="section-title">Наша продукция</h2>
+                <div class="products-grid">
+                    <div class="product-card">
+                        <div class="product-image">[Изображение маркизы]</div>
+                        <div class="product-content">
+                            <h3>Маркизы выдвижные</h3>
+                            <p>Классические солнцезащитные системы для террас и веранд</p>
+                            <div class="product-price">от 15 000 ₴</div>
+                            <a href="#" class="btn">Подробнее →</a>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">[Изображение перголы]</div>
+                        <div class="product-content">
+                            <h3>Перголы биоклиматические</h3>
+                            <p>Умные крыши с поворотными ламелями для полного контроля климата</p>
+                            <div class="product-price">от 45 000 ₴</div>
+                            <a href="#" class="btn">Подробнее →</a>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">[Изображение зонта]</div>
+                        <div class="product-content">
+                            <h3>Зонты уличные</h3>
+                            <p>Большие торговые и кафе-зонты с устойчивым основанием</p>
+                            <div class="product-price">от 8 500 ₴</div>
+                            <a href="#" class="btn">Подробнее →</a>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">[Изображение навеса]</div>
+                        <div class="product-content">
+                            <h3>Навесы стационарные</h3>
+                            <p>Постоянные конструкции для авто и террас</p>
+                            <div class="product-price">от 25 000 ₴</div>
+                            <a href="#" class="btn">Подробнее →</a>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">[Изображение витража]</div>
+                        <div class="product-content">
+                            <h3>Витражи безрамные</h3>
+                            <p>Остекление террас с раздвижными секциями</p>
+                            <div class="product-price">от 12 000 ₴/м²</div>
+                            <a href="#" class="btn">Подробнее →</a>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">[Изображение рефлексоли]</div>
+                        <div class="product-content">
+                            <h3>Рефлексоли вертикальные</h3>
+                            <p>Наружные жалюзи для фасадов и окон</p>
+                            <div class="product-price">от 3 500 ₴/м²</div>
+                            <a href="#" class="btn">Подробнее →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About -->
+        <section class="about-section">
+            <div class="page-width">
+                <div class="about-grid">
+                    <div class="about-text">
+                        <h2>О компании Горизонт</h2>
+                        <p>Мы специализируемся на проектировании, производстве и монтаже солнцезащитных систем любой сложности. Наша продукция защищает от солнца, ветра и дождя, создавая комфортную зону отдыха.</p>
+                        <p>Работаем по всей Украине. Бесплатный выезд замерщика в Киеве и области. Индивидуальные проекты под ваши размеры.</p>
+                        <a href="#" class="btn">Узнать больше →</a>
+                    </div>
+                    <div class="about-image">[Фото производства/монтажа]</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta-section">
+            <div class="page-width">
+                <h2>Получите бесплатную консультацию</h2>
+                <p>Оставьте заявку — наш специалист свяжется с вами в течение 30 минут</p>
+                <a href="#" class="cta-btn">Заказать звонок</a>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="page-width">
+                <div class="footer-grid">
+                    <div class="footer-col">
+                        <h4>Каталог</h4>
+                        <ul>
+                            <li><a href="#">Маркизы</a></li>
+                            <li><a href="#">Перголы</a></li>
+                            <li><a href="#">Навесы</a></li>
+                            <li><a href="#">Зонты</a></li>
+                            <li><a href="#">Витражи</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Информация</h4>
+                        <ul>
+                            <li><a href="#">О компании</a></li>
+                            <li><a href="#">Доставка и оплата</a></li>
+                            <li><a href="#">Гарантия</a></li>
+                            <li><a href="#">Портфолио</a></li>
+                            <li><a href="#">Контакты</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Контакты</h4>
+                        <ul>
+                            <li>📞 +380 44 123-45-67</li>
+                            <li>✉️ info@gorizont.com.ua</li>
+                            <li>📍 Киев, ул. Примерная, 1</li>
+                            <li>🕐 Пн-Пт: 8:00 - 18:00</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>© 2024 Горизонт. Все права защищены. Солнцезащитные системы в Украине.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <div class="annotation">
+        <h4>📐 Структура главной страницы</h4>
+        <p><b>Header:</b> Лого, верхнее меню, контакты, часы работы, скидка</p>
+        <p><b>Nav:</b> Главное меню категорий (8 пунктов)</p>
+        <p><b>Hero:</b> CTA баннер с основным предложением</p>
+        <p><b>Content:</b> Преимущества → Товары (6 карточек) → О компании</p>
+        <p><b>Footer:</b> 3 колонки + копирайт</p>
+    </div>
+</body>
+</html>

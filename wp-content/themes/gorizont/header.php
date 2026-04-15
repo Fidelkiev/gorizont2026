@@ -33,32 +33,17 @@
     <meta name="twitter:description" content="<?php echo esc_attr(get_the_excerpt() ? get_the_excerpt() : 'Маркизы, перголы, навесы от Горизонт - солнцезащитные системы премиум класса.'); ?>">
     <meta name="twitter:image" content="<?php echo esc_url(get_the_post_thumbnail_url(null, 'large') ? get_the_post_thumbnail_url(null, 'large') : get_template_directory_uri() . '/images/og-image.jpg'); ?>">
     
-    <!-- Structured Data - Organization -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "Горизонт - Солнцезащитные системы",
-        "url": "https://www.gorizont.com.ua",
-        "logo": "https://www.gorizont.com.ua/wp-content/themes/gorizont/images/logo.png",
-        "description": "Маркизы, перголы, навесы, зонты от компании Горизонт. Производство и установка солнцезащитных систем премиум класса.",
-        "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "Киев",
-            "addressCountry": "UA"
-        },
-        "contactPoint": {
-            "@type": "ContactPoint",
-            "telephone": "+380-XX-XXX-XXXX",
-            "contactType": "sales",
-            "availableLanguage": ["Russian", "Ukrainian"]
-        },
-        "sameAs": [
-            "https://www.facebook.com/gorizont",
-            "https://www.instagram.com/gorizont"
-        ]
-    }
-    </script>
+    <!-- Preconnect for Performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- DNS Prefetch for external resources -->
+    <link rel="dns-prefetch" href="//www.google-analytics.com">
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="<?php echo get_template_directory_uri(); ?>/style.css" as="style">
+    <link rel="preload" href="<?php echo get_template_directory_uri(); ?>/js/main.js" as="script">
     
     <!-- Preconnect for Performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -103,11 +88,14 @@
                     </div>
                 </div>
                 
+                <button class="menu-toggle" aria-label="Toggle Menu" aria-expanded="false">☰</button>
+                
                 <?php wp_nav_menu(array(
                     'theme_location' => 'top',
                     'menu_class' => 'main-menu',
                     'container' => 'nav',
-                    'container_class' => 'main-navigation'
+                    'container_class' => 'main-navigation',
+                    'container_aria_label' => 'Primary Menu'
                 )); ?>
             </div>
         </div>

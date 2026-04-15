@@ -126,11 +126,191 @@ address {
   margin-top: 40px;
 }
 
-/* Responsive */
+/* ====================
+   MOBILE OPTIMIZATION
+   ==================== */
+
+/* Tablet and Mobile */
+@media (max-width: 1024px) {
+  .page-width {
+    padding: 0 15px;
+  }
+  
+  .logo a {
+    font-size: 20px;
+  }
+}
+
+/* Mobile Landscape and Portrait */
 @media (max-width: 768px) {
+  /* Layout changes */
   .main,
   .sidebar {
     float: none;
     width: 100%;
+    padding: 0;
+  }
+  
+  .sidebar {
+    margin-top: 30px;
+  }
+  
+  /* Navigation mobile */
+  .topnav ul {
+    text-align: center;
+  }
+  
+  .topnav li {
+    display: inline-block;
+    margin: 0 10px 10px;
+  }
+  
+  /* Header adjustments */
+  .header {
+    text-align: center;
+  }
+  
+  .logo {
+    margin-bottom: 15px;
+    display: block;
+  }
+  
+  /* Typography mobile */
+  body {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  
+  h1 {
+    font-size: 24px;
+  }
+  
+  h2 {
+    font-size: 20px;
+  }
+  
+  h3 {
+    font-size: 18px;
+  }
+  
+  /* Images responsive */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Touch-friendly buttons */
+  .btn,
+  button,
+  input[type="submit"],
+  input[type="button"] {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 12px 20px;
+    font-size: 16px;
+  }
+  
+  /* Form elements touch-friendly */
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  textarea,
+  select {
+    font-size: 16px;
+    padding: 12px;
+    min-height: 44px;
+  }
+  
+  /* Links touch-friendly */
+  a {
+    padding: 8px 0;
+    display: inline-block;
+  }
+  
+  /* Product grid mobile */
+  .products-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  /* Product single mobile */
+  .product-single .product-gallery,
+  .product-single .product-info {
+    width: 100%;
+    float: none;
+  }
+  
+  /* Menu mobile */
+  .main-menu {
+    display: none;
+  }
+  
+  .main-menu.active {
+    display: block;
+  }
+  
+  .main-menu li {
+    display: block;
+    width: 100%;
+  }
+  
+  .main-menu a {
+    display: block;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .page-width {
+    padding: 0 10px;
+  }
+  
+  .logo a {
+    font-size: 18px;
+  }
+  
+  h1 {
+    font-size: 22px;
+  }
+  
+  h2 {
+    font-size: 18px;
+  }
+  
+  /* Mobile menu button */
+  .menu-toggle {
+    display: block;
+    width: 44px;
+    height: 44px;
+    background: #161a0b;
+    color: #fff;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    margin: 10px auto;
+  }
+  
+  /* Breadcrumbs mobile */
+  .breadcrumbs ol {
+    font-size: 12px;
+  }
+  
+  /* Content padding */
+  .content {
+    padding: 15px 0;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) {
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  .btn:hover {
+    opacity: 1;
   }
 }

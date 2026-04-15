@@ -1,0 +1,30 @@
+# Protect plugins directory - block direct access to PHP files except CSS/JS assets
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Allow access to assets
+    RewriteRule \.(css|js|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$ - [L]
+    
+    # Block direct access to PHP files
+    RewriteRule ^.*\.php$ - [F,L]
+</IfModule>
+
+<IfModule mod_authz_core.c>
+    <FilesMatch "\.(php|php\.|php3|php4|php5|phtml|pl|py)$">
+        Require all denied
+    </FilesMatch>
+</IfModule>
+
+# Deny access to sensitive files
+<FilesMatch "\.(htaccess|htpasswd|ini|log|sh|sql|md|zip|tar|gz)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        order allow,deny
+        deny from all
+    </IfModule>
+</FilesMatch>
+
+# Disable directory listing
+Options -Indexes

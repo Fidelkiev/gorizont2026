@@ -14,15 +14,15 @@ define('DB_COLLATE', '');
 /** WordPress database table prefix */
 $table_prefix = 'wp_';
 
-/** Authentication keys and salts - generated for production */
-define('AUTH_KEY',         'X&7kL9$mP2@qR5#vW8!nY3*Z6aB1cD4eF0gH2iJ5kL8mN1pQ4rS7tU0wX3y');
-define('SECURE_AUTH_KEY',  'T6vW9!xY2&zA5#bC8@dE1$fG4*hI7-jK0,lN3.oP6 qS9 tV2 wY5 zA8');
-define('LOGGED_IN_KEY',    'bC8!dE1$fG4*hI7-jK0,lN3.oP6 qS9 tV2 wY5 zA8 bC1 dE4 fG7');
-define('NONCE_KEY',        'hI7-jK0,lN3.oP6 qS9 tV2 wY5 zA8 bC1 dE4 fG7 hI0 jK3 lN6');
-define('AUTH_SALT',        'P6 qS9 tV2 wY5 zA8 bC1 dE4 fG7 hI0 jK3 lN6 oP9 rS2 uV5');
-define('SECURE_AUTH_SALT', 'Y5 zA8 bC1 dE4 fG7 hI0 jK3 lN6 oP9 rS2 uV5 wX8 yA1 zB4');
-define('LOGGED_IN_SALT',   'C1 dE4 fG7 hI0 jK3 lN6 oP9 rS2 uV5 wX8 yA1 zB4 cD7 eF0');
-define('NONCE_SALT',       'G7 hI0 jK3 lN6 oP9 rS2 uV5 wX8 yA1 zB4 cD7 eF0 gH3 iJ6');
+/** Authentication keys and salts - regenerate at https://api.wordpress.org/secret-key/1.1/salt/ */
+define('AUTH_KEY',         'x/NB9>m[BE+DO3B+|e!$)mD|GBdSgM]}9+fdoN.>|&j>uJ3Pr59:hbX*tk:q_J#N');
+define('SECURE_AUTH_KEY',  'uV)yn9Fp<OenY!}?u#`hw;}Y|[9o>s2r5t(vxM$dv_oP/`|wUZ]g*JX)a_2YN2_F');
+define('LOGGED_IN_KEY',    '_Jt]-#I!iH/gS{V:eG}Q/~$?7dY8,+%[;BPrT3xt{@+kbzVg(l-sOG}Svk/&,G1x');
+define('NONCE_KEY',        '9T#]@zC!>eMOA{+^*0lEwI?-jow8r2h~fB<mP]e.vV|Y#0|w)8<tyU:!1L];OYj|');
+define('AUTH_SALT',        'W%*+eO1^L|@Gqf>YZTg_Wx+!4{e6a}28e(D$5&0aE^h)~qXmG>L)5t3S4ufqH7Xb');
+define('SECURE_AUTH_SALT', 'NDiCQ4/8^XvAS7>z,q6X;9WNi6R>`0m+&HwB}f?m|-&P2nD8S@X!toK|e9sVt4eY');
+define('LOGGED_IN_SALT',   '|c}$QcBdG+V6=f$H0Dy~`V1i@M+l1~O;Hj39ugtgyY8.c_^hnW}Q0Szm}_9cVX1m');
+define('NONCE_SALT',       'xbqH2L9D>.k|92f|7+85f5p!tKwzM>S6wG<V8}+Pv*z`|3NLeY_@:+({+xSBMpBS');
 
 /** WordPress debugging mode */
 define('WP_DEBUG', false);
@@ -34,9 +34,15 @@ define('WP_MEMORY_LIMIT', '256M');
 /** Security settings */
 define('DISALLOW_FILE_EDIT', true);
 define('DISALLOW_FILE_MODS', true);
+define('FORCE_SSL_ADMIN', true);
+define('XMLRPC_ENABLED', false);
+define('WP_ALLOW_UNFILTERED_UPLOADS', false);
+define('AUTH_COOKIE_DAYS', 1);
+define('WP_FAIL2BAN_BLOCK_USER_ENUMERATION', true);
 
 /** Automatic updates */
 define('WP_AUTO_UPDATE_CORE', 'minor');
+define('AUTOMATIC_UPDATER_DISABLED', false);
 
 /** Absolute path to the WordPress directory. */
 if (!defined('ABSPATH')) {

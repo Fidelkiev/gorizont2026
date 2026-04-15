@@ -1,0 +1,26 @@
+# Protect wp-includes - only allow access to specific files
+<IfModule mod_authz_core.c>
+    Require all denied
+</IfModule>
+
+<IfModule !mod_authz_core.c>
+    order deny,allow
+    deny from all
+</IfModule>
+
+# Allow CSS, JS, images, fonts
+<FilesMatch "\.(css|js|png|gif|jpg|jpeg|svg|ico|woff|woff2|ttf|otf|eot)$">
+    <IfModule mod_authz_core.c>
+        Require all granted
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        allow from all
+    </IfModule>
+</FilesMatch>
+
+# Block PHP in this directory
+<FilesMatch "\.(?i:php)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+</FilesMatch>

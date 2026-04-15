@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gorizont.com.ua — Визуализация Внутренней страницы (Карточка товара)</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font: 13px/18px 'Trebuchet MS', Helvetica, sans-serif;
+            color: #594e44;
+            background: #fff;
+        }
+        
+        .bone { min-height: 100%; position: relative; }
+        .page-width { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .clearfix::after { content: ""; display: table; clear: both; }
+        
+        /* Header (compact) */
+        .bg-top { background: #f8f8f8; border-bottom: 2px solid #ddd; }
+        .header { padding: 15px 0; }
+        .logo { float: left; }
+        .logo a {
+            font-size: 22px;
+            font-weight: bold;
+            color: #161a0b;
+            text-decoration: none;
+        }
+        .topnav { float: right; font-size: 12px; }
+        .topnav ul { list-style: none; display: inline; }
+        .topnav li { display: inline-block; margin-left: 15px; }
+        
+        .main-navigation {
+            background: #161a0b;
+            clear: both;
+        }
+        .main-menu { list-style: none; margin: 0; padding: 0; }
+        .main-menu li { display: inline-block; }
+        .main-menu a {
+            display: block;
+            padding: 10px 18px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 12px;
+        }
+        
+        /* Breadcrumbs */
+        .breadcrumbs {
+            background: #f0f0f0;
+            padding: 12px 0;
+            font-size: 12px;
+        }
+        .breadcrumbs ol {
+            list-style: none;
+            padding: 0;
+        }
+        .breadcrumbs li {
+            display: inline;
+            color: #666;
+        }
+        .breadcrumbs a { color: #161a0b; text-decoration: none; }
+        .breadcrumbs .sep { margin: 0 8px; color: #999; }
+        
+        /* Content Layout */
+        .content { padding: 30px 0; }
+        .main { float: left; width: 70%; }
+        .sidebar { float: right; width: 28%; }
+        
+        /* Product Single */
+        .product-single { background: white; }
+        .product-single h1 {
+            font-size: 28px;
+            color: #161a0b;
+            margin-bottom: 25px;
+        }
+        
+        /* Product Gallery */
+        .product-gallery {
+            float: left;
+            width: 45%;
+            margin-right: 5%;
+        }
+        .product-main-image {
+            background: linear-gradient(135deg, #e8e8e8, #f5f5f5);
+            height: 350px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            margin-bottom: 15px;
+        }
+        .product-thumbs {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        .thumb {
+            background: #e0e0e0;
+            height: 70px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: #888;
+            cursor: pointer;
+        }
+        .thumb.active { border: 2px solid #ff6b35; }
+        
+        /* Product Info */
+        .product-info { float: left; width: 50%; }
+        .product-description {
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+        .product-description p { margin-bottom: 15px; }
+        
+        .product-price-box {
+            background: #f8f8f8;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+        .product-price {
+            font-size: 28px;
+            color: #ff6b35;
+            font-weight: bold;
+        }
+        .product-price-note {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .product-actions {
+            margin-bottom: 25px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 14px 30px;
+            font-size: 14px;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .btn-primary {
+            background: #ff6b35;
+            color: white;
+        }
+        .btn-secondary {
+            background: #161a0b;
+            color: white;
+        }
+        .btn-outline {
+            background: transparent;
+            color: #161a0b;
+            border: 2px solid #161a0b;
+        }
+        
+        /* Product Specs */
+        .product-specs {
+            margin: 30px 0;
+            clear: both;
+        }
+        .product-specs h2 {
+            font-size: 20px;
+            color: #161a0b;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ddd;
+        }
+        .specs-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .specs-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .specs-table td:first-child {
+            width: 40%;
+            color: #666;
+            font-weight: bold;
+        }
+        
+        /* Product Categories Tags */
+        .product-categories {
+            margin: 25px 0;
+        }
+        .product-categories h3 {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        .category-tag {
+            display: inline-block;
+            padding: 6px 14px;
+            background: #f0f0f0;
+            color: #666;
+            text-decoration: none;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-right: 8px;
+        }
+        
+        /* Read More Section */
+        .read-more-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: transparent;
+            color: #667eea;
+            border: 2px solid #667eea;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s;
+        }
+        .read-more-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+        .read-more-btn .arrow {
+            transition: transform 0.3s;
+        }
+        .read-more-btn.active .arrow {
+            transform: rotate(180deg);
+        }
+        
+        .full-description {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+            background: #f8f8f8;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .full-description.active {
+            max-height: 3000px;
+            transition: max-height 0.5s ease-in;
+        }
+        .full-description-content {
+            padding: 30px;
+        }
+        
+        .full-description h3 {
+            font-size: 20px;
+            color: #161a0b;
+            margin: 30px 0 15px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ddd;
+        }
+        .full-description h3:first-child {
+            margin-top: 0;
+        }
+        .full-description p {
+            font-size: 14px;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+        .full-description ul {
+            margin: 15px 0;
+            padding-left: 25px;
+        }
+        .full-description li {
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        /* Gallery in full description */
+        .description-gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .description-gallery .img-placeholder {
+            background: linear-gradient(135deg, #e0e0e0, #f0f0f0);
+            height: 200px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            font-size: 13px;
+        }
+        .description-gallery .img-placeholder.wide {
+            grid-column: 1 / -1;
+            height: 300px;
+        }
+        
+        /* Drawings section */
+        .drawings-section {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .drawings-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .drawing-item {
+            text-align: center;
+        }
+        .drawing-item .drawing-placeholder {
+            background: #fff;
+            border: 2px dashed #ccc;
+            height: 250px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+        .drawing-item .caption {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        /* Sidebar */
+        .widget {
+            background: #f8f8f8;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+        .widget h3 {
+            font-size: 14px;
+            color: #161a0b;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .widget ul { list-style: none; }
+        .widget li { margin-bottom: 8px; }
+        .widget a {
+            color: #594e44;
+            text-decoration: none;
+            font-size: 13px;
+        }
+        .widget a:hover { color: #ff6b35; }
+        
+        .contact-widget p {
+            font-size: 12px;
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+        .contact-widget strong { color: #161a0b; }
+        
+        /* Related Products */
+        .related-products {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #ddd;
+            clear: both;
+        }
+        .related-products h2 {
+            font-size: 22px;
+            color: #161a0b;
+            margin-bottom: 25px;
+        }
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+        .product-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .product-card .product-image {
+            height: 140px;
+            background: linear-gradient(45deg, #e0e0e0, #f0f0f0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 11px;
+        }
+        .product-card .product-content {
+            padding: 15px;
+        }
+        .product-card h3 {
+            font-size: 14px;
+            color: #161a0b;
+            margin-bottom: 8px;
+        }
+        .product-card .price {
+            color: #ff6b35;
+            font-weight: bold;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #0d0f08;
+            color: #999;
+            padding: 40px 0;
+            clear: both;
+            margin-top: 50px;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+        .footer-col h4 {
+            color: white;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        .footer-col ul { list-style: none; }
+        .footer-col li { margin-bottom: 8px; font-size: 12px; }
+        .footer-bottom {
+            border-top: 1px solid #333;
+            margin-top: 30px;
+            padding-top: 20px;
+            text-align: center;
+            font-size: 12px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main, .sidebar { float: none; width: 100%; }
+            .product-gallery, .product-info { float: none; width: 100%; margin-right: 0; }
+            .products-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        
+        .annotation {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.85);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-size: 12px;
+            max-width: 300px;
+        }
+        .annotation h4 { margin-bottom: 10px; color: #ff6b35; }
+        .highlight-box {
+            border: 2px dashed #ff6b35;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            background: rgba(255,107,53,0.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="bone">
+        <!-- Header -->
+        <div class="bg-top">
+            <div class="page-width">
+                <div class="header clearfix">
+                    <div class="logo">
+                        <a href="#">ГОРИЗОНТ ® Sun Protection Systems</a>
+                    </div>
+                    <div class="topnav">
+                        <ul>
+                            <li><a href="#">Новости</a></li>
+                            <li><a href="#">О компании</a></li>
+                            <li><a href="#">Сервис и гарантия</a></li>
+                            <li><a href="#">Контакты</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <nav class="main-navigation">
+                    <ul class="main-menu">
+                        <li><a href="#">Главная</a></li>
+                        <li><a href="#">Маркизы</a></li>
+                        <li><a href="#">Перголы</a></li>
+                        <li><a href="#">Навесы</a></li>
+                        <li><a href="#">Зонты</a></li>
+                        <li><a href="#">Витражи</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Breadcrumbs -->
+        <div class="breadcrumbs">
+            <div class="page-width">
+                <ol>
+                    <li><a href="#">Главная</a></li>
+                    <li class="sep">›</li>
+                    <li><a href="#">Каталог</a></li>
+                    <li class="sep">›</li>
+                    <li><a href="#">Маркизы</a></li>
+                    <li class="sep">›</li>
+                    <li>Маркиза выдвижная Valencia</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content">
+            <div class="page-width clearfix">
+                <div class="main">
+                    <article class="product-single">
+                        <h1>Маркиза выдвижная Valencia</h1>
+                        
+                        <div class="clearfix">
+                            <!-- Product Gallery -->
+                            <div class="product-gallery">
+                                <div class="product-main-image">[Главное фото — 500x350px]</div>
+                                <div class="product-thumbs">
+                                    <div class="thumb active">Фото 1</div>
+                                    <div class="thumb">Фото 2</div>
+                                    <div class="thumb">Фото 3</div>
+                                    <div class="thumb">Фото 4</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Product Info -->
+                            <div class="product-info">
+                                <div class="product-description">
+                                    <p><strong>Классическая выдвижная маркиза для террас и веранд.</strong></p>
+                                    <p>Идеальное решение для защиты от солнца с возможностью управления углом наклона полотна. Прочная конструкция выдерживает ветер до 25 м/с.</p>
+                                    <p>✓ Монтаж на стену или потолок<br>
+                                    ✓ Ручное или электрическое управление<br>
+                                    ✓ Ширина до 7 метров, вынос до 3.5 метров<br>
+                                    ✓ Ткань с фактором защиты UV 50+</p>
+                                </div>
+                                
+                                <button class="read-more-btn" onclick="toggleDescription()">
+                                    <span>Читать полное описание</span>
+                                    <span class="arrow">▼</span>
+                                </button>
+                                
+                                <div class="full-description" id="fullDesc">
+                                    <div class="full-description-content">
+                                        <h3>Полное описание маркизы Valencia</h3>
+                                        <p>Маркиза Valencia — это современное решение для защиты от солнца на террасах, верандах, у кафе и ресторанов. Конструкция разработана с учетом всех требований к уличным солнцезащитным системам в умеренном климате.</p>
+                                        
+                                        <h3>Конструкция и материалы</h3>
+                                        <p>Каркас маркизы выполнен из высококачественного алюминия с порошковым покрытием, устойчивым к коррозии и УФ-излучению. Все соединения тщательно спроектированы для обеспечения максимальной жесткости при минимальном весе конструкции.</p>
+                                        <p>Солнцезащитное полотно изготавливается из европейской ткани Acrylic или Sunbrella с фактором защиты UV 50+. Доступно более 300 цветов и текстур, включая однотонные, полосатые и жаккардовые варианты.</p>
+                                        
+                                        <h3>Галерея установок</h3>
+                                        <div class="description-gallery">
+                                            <div class="img-placeholder wide">[Фото: Маркиза на террасе частного дома — широкое]</div>
+                                            <div class="img-placeholder">[Фото: Деталь крепления к стене]</div>
+                                            <div class="img-placeholder">[Фото: Электропривод и пульт]</div>
+                                            <div class="img-placeholder wide">[Фото: Маркиза в интерьере кафе]</div>
+                                        </div>
+                                        
+                                        <h3>Варианты управления</h3>
+                                        <ul>
+                                            <li><strong>Ручное (штанга):</strong> Бюджетный вариант с механическим приводом через штангу. Надежно, просто, не требует электричества.</li>
+                                            <li><strong>Электропривод с пультом:</strong> Удобное управление с беспроводного пульта. Возможность подключения к системе "умный дом".</li>
+                                            <li><strong>Смарт-управление:</strong> Управление со смартфона через Wi-Fi, интеграция с сенсорами ветра и солнца.</li>
+                                        </ul>
+                                        
+                                        <h3>Чертежи и размеры</h3>
+                                        <div class="drawings-section">
+                                            <div class="drawings-grid">
+                                                <div class="drawing-item">
+                                                    <div class="drawing-placeholder">[Чертёж: Вид сверху — габаритные размеры]</div>
+                                                    <div class="caption">Вид сверху с размерами</div>
+                                                </div>
+                                                <div class="drawing-item">
+                                                    <div class="drawing-placeholder">[Чертёж: Вид сбоку — профиль конструкции]</div>
+                                                    <div class="caption">Боковой профиль</div>
+                                                </div>
+                                                <div class="drawing-item">
+                                                    <div class="drawing-placeholder">[Чертёж: Узел крепления к стене]</div>
+                                                    <div class="caption">Узел крепления к стене</div>
+                                                </div>
+                                                <div class="drawing-item">
+                                                    <div class="drawing-placeholder">[Чертёж: Узел крепления к потолку]</div>
+                                                    <div class="caption">Узел крепления к потолку</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <h3>Преимущества маркизы Valencia</h3>
+                                        <ul>
+                                            <li>Компактная кассета защищает полотно при сложенном состоянии</li>
+                                            <li>Угол наклона регулируется от 0° до 45° для оптимальной защиты</li>
+                                            <li>Встроенный LED-подсветка опционально доступна</li>
+                                            <li>Датчик ветра автоматически складывает маркизу при сильном ветре</li>
+                                            <li>Эксклюзивная цветовая палитра с возможностью нанесения логотипа</li>
+                                        </ul>
+                                        
+                                        <h3>Уход и обслуживание</h3>
+                                        <p>Маркиза Valencia практически не требует обслуживания. Рекомендуется раз в год проверять крепления и очищать полотно мягкой щеткой с мыльным раствором. При использовании электропривода раз в 3-5 лет рекомендуется профилактический осмотр механизма.</p>
+                                        
+                                        <p style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd; font-style: italic; color: #888;">
+                                            * Все размеры и комплектации индивидуальны. Оставьте заявку на бесплатный замер для точного расчета.
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                                <div class="product-price-box">
+                                    <div class="product-price">от 24 500 ₴</div>
+                                    <div class="product-price-note">Цена за базовую комплектацию 3×2.5м</div>
+                                </div>
+                                
+                                <div class="product-actions">
+                                    <a href="#" class="btn btn-primary">Заказать сейчас</a>
+                                    <a href="#" class="btn btn-secondary">Вызвать замерщика</a>
+                                </div>
+                                
+                                <div class="product-categories">
+                                    <h3>Категории:</h3>
+                                    <a href="#" class="category-tag">Маркизы</a>
+                                    <a href="#" class="category-tag">Для террасы</a>
+                                    <a href="#" class="category-tag">Выдвижные</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Product Specs -->
+                        <div class="product-specs">
+                            <h2>Технические характеристики</h2>
+                            <table class="specs-table">
+                                <tr><td>Ширина</td><td>2 — 7 метров</td></tr>
+                                <tr><td>Вынос (глубина)</td><td>1.5 — 3.5 метров</td></tr>
+                                <tr><td>Управление</td><td>Ручное (штанга) / Электро (пульт/смартфон)</td></tr>
+                                <tr><td>Каркас</td><td>Алюминий, порошковое покрытие</td></tr>
+                                <tr><td>Ткань</td><td>Acrylic/Sunbrella, 300+ цветов</td></tr>
+                                <tr><td>Ветровая нагрузка</td><td>до 25 м/с (класс 2)</td></tr>
+                                <tr><td>Гарантия</td><td>5 лет на каркас, 3 года на ткань</td></tr>
+                                <tr><td>Производство</td><td>Украина / Италия</td></tr>
+                            </table>
+                        </div>
+                        
+                        <!-- Related Products -->
+                        <div class="related-products">
+                            <h2>Похожие товары</h2>
+                            <div class="products-grid">
+                                <div class="product-card">
+                                    <div class="product-image">[Фото]</div>
+                                    <div class="product-content">
+                                        <h3>Маркиза Markilux 5010</h3>
+                                        <div class="price">от 45 000 ₴</div>
+                                    </div>
+                                </div>
+                                <div class="product-card">
+                                    <div class="product-image">[Фото]</div>
+                                    <div class="product-content">
+                                        <h3>Маркиза с кассетой Riviera</h3>
+                                        <div class="price">от 38 500 ₴</div>
+                                    </div>
+                                </div>
+                                <div class="product-card">
+                                    <div class="product-image">[Фото]</div>
+                                    <div class="product-content">
+                                        <h3>Маркиза боковая Screen</h3>
+                                        <div class="price">от 18 000 ₴</div>
+                                    </div>
+                                </div>
+                                <div class="product-card">
+                                    <div class="product-image">[Фото]</div>
+                                    <div class="product-content">
+                                        <h3>Пергола Pergostar</h3>
+                                        <div class="price">от 85 000 ₴</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                
+                <!-- Sidebar -->
+                <div class="sidebar">
+                    <div class="widget">
+                        <h3>Категории товаров</h3>
+                        <ul>
+                            <li><a href="#">→ Маркизы выдвижные</a></li>
+                            <li><a href="#">→ Маркизы с кассетой</a></li>
+                            <li><a href="#">→ Боковые маркизы</a></li>
+                            <li><a href="#">→ Перголы</a></li>
+                            <li><a href="#">→ Навесы</a></li>
+                            <li><a href="#">→ Зонты</a></li>
+                            <li><a href="#">→ Витражи</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="widget contact-widget">
+                        <h3>Контактная информация</h3>
+                        <p><strong>Телефон:</strong><br>
+                        +380 44 123-45-67</p>
+                        <p><strong>Email:</strong><br>
+                        info@gorizont.com.ua</p>
+                        <p><strong>Адрес:</strong><br>
+                        г. Киев, ул. Примерная, 1</p>
+                        <p><strong>График:</strong><br>
+                        Пн-Пт: 8:00 - 18:00<br>
+                        Сб-Вс: выходной</p>
+                    </div>
+                    
+                    <div class="widget">
+                        <h3>Акция месяца</h3>
+                        <p style="font-size:12px;">Скидка 15% на все маркизы при заказе до конца месяца!</p>
+                        <a href="#" class="btn btn-outline" style="display:block; text-align:center; margin-top:10px;">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="page-width">
+                <div class="footer-grid">
+                    <div class="footer-col">
+                        <h4>Каталог</h4>
+                        <ul>
+                            <li>Маркизы</li>
+                            <li>Перголы</li>
+                            <li>Навесы</li>
+                            <li>Зонты</li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Информация</h4>
+                        <ul>
+                            <li>О компании</li>
+                            <li>Доставка и оплата</li>
+                            <li>Гарантия</li>
+                            <li>Контакты</li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Контакты</h4>
+                        <ul>
+                            <li>📞 +380 44 123-45-67</li>
+                            <li>✉️ info@gorizont.com.ua</li>
+                            <li>📍 Киев, ул. Примерная, 1</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>© 2024 Горизонт. Все права защищены.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <div class="annotation">
+        <h4>📐 Структура внутренней страницы</h4>
+        <div class="highlight-box">
+            <p><b>Шапка:</b> Компактный header + breadcrumbs</p>
+            <p><b>Контент:</b> 70% / Sidebar: 28%</p>
+        </div>
+        <p>• <b>Галерея:</b> Главное фото + 4 thumbnails</p>
+        <p>• <b>Инфо:</b> Описание, <b style="color:#ff6b35">кнопка 'Читать далее' →</b>, цена, CTA</p>
+        <p>• <b>Полное описание:</b> Текст, фото, чертежи (SEO-контент)</p>
+        <p>• <b>Характеристики:</b> Таблица specs</p>
+        <p>• <b>Похожие:</b> 4 карточки товаров</p>
+        <p>• <b>Сайдбар:</b> Меню категорий + контакты + акция</p>
+    </div>
+
+    <script>
+        function toggleDescription() {
+            const fullDesc = document.getElementById('fullDesc');
+            const btn = document.querySelector('.read-more-btn');
+            const btnText = btn.querySelector('span:first-child');
+            
+            if (fullDesc.classList.contains('active')) {
+                fullDesc.classList.remove('active');
+                btn.classList.remove('active');
+                btnText.textContent = 'Читать полное описание';
+                // Scroll back to button
+                btn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } else {
+                fullDesc.classList.add('active');
+                btn.classList.add('active');
+                btnText.textContent = 'Свернуть описание';
+            }
+        }
+    </script>
+</body>
+</html>

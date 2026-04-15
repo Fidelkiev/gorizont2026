@@ -1,0 +1,26 @@
+# Protect uploads directory - deny PHP execution
+<IfModule mod_php.c>
+    php_flag engine off
+</IfModule>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule \.(php|php\.|php3|php4|php5|phtml|pl|py|jsp|asp|aspx|cgi|sh|bash)$ - [F,L]
+</IfModule>
+
+<IfModule mod_authz_core.c>
+    <FilesMatch "\.(?i:php)$">
+        Require all denied
+    </FilesMatch>
+</IfModule>
+
+# Deny access to sensitive files
+<FilesMatch "\.(htaccess|htpasswd|ini|log|sh|sql)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        order allow,deny
+        deny from all
+    </IfModule>
+</FilesMatch>

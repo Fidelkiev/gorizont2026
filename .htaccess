@@ -62,7 +62,18 @@ Options -Indexes
     </IfModule>
 </Files>
 
-# Block bad bots
+# Block XML-RPC
+<Files xmlrpc.php>
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        order allow,deny
+        deny from all
+    </IfModule>
+</Files>
+
+# Block bad bots + scanners
 <IfModule mod_setenvif.c>
     SetEnvIfNoCase User-Agent "^$" bad_bot
     SetEnvIfNoCase User-Agent "^Bot" bad_bot
@@ -72,12 +83,39 @@ Options -Indexes
     SetEnvIfNoCase User-Agent "^AhrefsBot" bad_bot
     SetEnvIfNoCase User-Agent "^MJ12bot" bad_bot
     SetEnvIfNoCase User-Agent "^DotBot" bad_bot
+    SetEnvIfNoCase User-Agent "^SemrushBot" bad_bot
+    SetEnvIfNoCase User-Agent "^Baiduspider" bad_bot
+    SetEnvIfNoCase User-Agent "^YandexBot" bad_bot
+    SetEnvIfNoCase User-Agent "^sqlmap" bad_bot
+    SetEnvIfNoCase User-Agent "^nikto" bad_bot
+    SetEnvIfNoCase User-Agent "^nmap" bad_bot
+    SetEnvIfNoCase User-Agent "^masscan" bad_bot
+    SetEnvIfNoCase User-Agent "^gobuster" bad_bot
+    SetEnvIfNoCase User-Agent "^dirbuster" bad_bot
+    SetEnvIfNoCase User-Agent "^wfuzz" bad_bot
 </IfModule>
 
 <IfModule mod_authz_core.c>
     <RequireAll>
         Require not env bad_bot
     </RequireAll>
+</IfModule>
+
+# Block SQL injection / LFI attempts in query string
+<IfModule mod_rewrite.c>
+    RewriteCond %{QUERY_STRING} (select|union|insert|update|delete|drop|create|alter|exec|script|javascript|onload|onerror) [NC]
+    RewriteRule .* - [F,L]
+</IfModule>
+
+# Disable hotlinking images
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{HTTP_REFERER} !^$
+    RewriteCond %{HTTP_REFERER} !^https?://(www\.)?gorizont\.com\.ua [NC]
+    RewriteCond %{HTTP_REFERER} !^https?://(www\.)?google\. [NC]
+    RewriteCond %{HTTP_REFERER} !^https?://(www\.)?bing\. [NC]
+    RewriteCond %{HTTP_REFERER} !^https?://(www\.)?yandex\. [NC]
+    RewriteRule \.(jpg|jpeg|png|gif|webp|svg)$ - [F,L]
 </IfModule>
 
 # Compress text, html, css, js, xml, json

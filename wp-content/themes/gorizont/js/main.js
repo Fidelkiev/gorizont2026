@@ -1,10 +1,31 @@
 jQuery(document).ready(function($) {
     
     // Mobile menu toggle
-    $('.mobile-menu-toggle').on('click', function(e) {
+    $('.menu-toggle').on('click', function(e) {
         e.preventDefault();
-        $('.mobile-menu').toggleClass('open');
-        $(this).toggleClass('active');
+        var menu = $('.main-menu');
+        var button = $(this);
+        
+        menu.toggleClass('active');
+        button.toggleClass('active');
+        
+        // Update ARIA attributes
+        var isExpanded = menu.hasClass('active');
+        button.attr('aria-expanded', isExpanded);
+        button.html(isExpanded ? '✕' : '☰');
+    });
+    
+    // Close menu when clicking outside
+    $(document).on('click', function(e) {
+        if (!$(e.target).closest('.main-navigation, .menu-toggle').length) {
+            $('.main-menu').removeClass('active');
+            $('.menu-toggle').removeClass('active').attr('aria-expanded', 'false').html('☰');
+        }
+    });
+    
+    // Touch-friendly: prevent double-tap zoom on buttons
+    $('.btn, button, a').on('touchstart', function() {
+        // Fast click simulation
     });
     
     // Smooth scroll for anchor links
